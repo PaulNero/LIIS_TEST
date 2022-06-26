@@ -1,0 +1,3108 @@
+{
+	"info": {
+		"_postman_id": "744e87c5-c0e0-4c21-b1df-443b0e54ccdc",
+		"name": "ЛИИС Цыганкова Copy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20440543"
+	},
+	"item": [
+		{
+			"name": "V1",
+			"item": [
+				{
+					"name": "Posts",
+					"item": [
+						{
+							"name": "POST Post",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", function () {\r",
+											"    pm.response.to.have.status(201);\r",
+											"});\r",
+											"pm.collectionVariables.set(\"id_post\", pm.response.json().id);\r",
+											"pm.collectionVariables.set(\"author_post\", pm.response.json().author);\r",
+											"pm.collectionVariables.set(\"publication_datetime_post\", pm.response.json().publication_datetime);\r",
+											"pm.test(\"Response time is less than 400ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+											"});\r",
+											"var jsonData = pm.response.json();\r",
+											"pm.test(\"Correct title\", function () {\r",
+											"    pm.expect(jsonData.title).to.eql(pm.collectionVariables.get(\"title_post\"));\r",
+											"});\r",
+											"pm.test(\"Correct content\", function () {\r",
+											"    pm.expect(jsonData.content).to.eql(pm.collectionVariables.get(\"content_post\"));\r",
+											"});\r",
+											"const schema = {\r",
+											"    \"required\": [\r",
+											"        \"title\",\r",
+											"        \"content\",\r",
+											"        \"author\",\r",
+											"        \"publication_datetime\",\r",
+											"        \"id\"\r",
+											"    ],\r",
+											"    \"properties\": {\r",
+											"        \"title\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"content\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"author\": {\r",
+											"            \"type\": \"integer\",\r",
+											"        },\r",
+											"        \"publication_datetime\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"id\": {\r",
+											"            \"type\": \"integer\",\r",
+											"        }\r",
+											"    },\r",
+											"};\r",
+											"pm.test('Schema is valid', function() {\r",
+											"  pm.expect(tv4.validate(pm.response.json(), schema)).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"{{title_post}}\",\r\n    \"content\": \"{{content_post}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://hr.recruit.liis.su/qa0/v1/api/{{username}}/posts",
+									"protocol": "https",
+									"host": [
+										"hr",
+										"recruit",
+										"liis",
+										"su"
+									],
+									"path": [
+										"qa0",
+										"v1",
+										"api",
+										"{{username}}",
+										"posts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET Post",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"var jsonData = pm.response.json();\r",
+											"pm.test(\"Correct title\", function () {\r",
+											"    pm.expect(jsonData.title).to.eql(pm.collectionVariables.get(\"title_post\"));\r",
+											"});\r",
+											"pm.test(\"Correct content\", function () {\r",
+											"    pm.expect(jsonData.content).to.eql(pm.collectionVariables.get(\"content_post\"));\r",
+											"});\r",
+											"pm.test(\"Correct author\", function () {\r",
+											"    pm.expect(jsonData.author).to.eql(pm.collectionVariables.get(\"author_post\"));\r",
+											"});\r",
+											"pm.test(\"Correct id\", function () {\r",
+											"    pm.expect(jsonData.id).to.eql(pm.collectionVariables.get(\"id_post\"));\r",
+											"});\r",
+											"pm.test(\"Correct publication_datetime\", function () {\r",
+											"    pm.expect(jsonData.publication_datetime).to.eql(pm.collectionVariables.get(\"publication_datetime_post\"));\r",
+											"});\r",
+											"pm.test(\"Response time is less than 400ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+											"});\r",
+											"const schema = {\r",
+											"    \"required\": [\r",
+											"        \"title\",\r",
+											"        \"content\",\r",
+											"        \"author\",\r",
+											"        \"publication_datetime\",\r",
+											"        \"id\"\r",
+											"    ],\r",
+											"    \"properties\": {\r",
+											"        \"title\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"content\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"author\": {\r",
+											"            \"type\": \"integer\",\r",
+											"        },\r",
+											"        \"publication_datetime\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"id\": {\r",
+											"            \"type\": \"integer\",\r",
+											"        }\r",
+											"    },\r",
+											"};\r",
+											"pm.test('Schema is valid', function() {\r",
+											"  pm.expect(tv4.validate(pm.response.json(), schema)).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://hr.recruit.liis.su/qa0/v1/api/{{username}}/post/{{id_post}}",
+									"protocol": "https",
+									"host": [
+										"hr",
+										"recruit",
+										"liis",
+										"su"
+									],
+									"path": [
+										"qa0",
+										"v1",
+										"api",
+										"{{username}}",
+										"post",
+										"{{id_post}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PUT Post",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"const message = {\r",
+											"    \"message\": \"updated\",\r",
+											"    \"type\": \"success\"\r",
+											"};\r",
+											"pm.test('Correct message', function() {\r",
+											"  pm.expect(pm.response.json()).to.deep.include(message);\r",
+											"});\r",
+											"pm.test(\"Response time is less than 400ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+											"});\r",
+											"const schema = {\r",
+											"    \"required\": [\r",
+											"        \"message\",\r",
+											"        \"type\"\r",
+											"    ],\r",
+											"    \"properties\": {\r",
+											"        \"message\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"type\": {\r",
+											"            \"type\": \"string\",\r",
+											"        }\r",
+											"    },\r",
+											"};\r",
+											"pm.test('Schema is valid', function() {\r",
+											"  pm.expect(tv4.validate(pm.response.json(), schema)).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"{{title_post_new}}\",\r\n    \"content\": \"{{content_post_new}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://hr.recruit.liis.su/qa0/v1/api/{{username}}/post/{{id_post}}",
+									"protocol": "https",
+									"host": [
+										"hr",
+										"recruit",
+										"liis",
+										"su"
+									],
+									"path": [
+										"qa0",
+										"v1",
+										"api",
+										"{{username}}",
+										"post",
+										"{{id_post}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET Updated Post",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"const schema = {\r",
+											"    \"required\": [\r",
+											"        \"title\",\r",
+											"        \"content\",\r",
+											"        \"author\",\r",
+											"        \"publication_datetime\",\r",
+											"        \"id\"\r",
+											"    ],\r",
+											"    \"properties\": {\r",
+											"        \"title\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"content\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"author\": {\r",
+											"            \"type\": \"integer\",\r",
+											"        },\r",
+											"        \"publication_datetime\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"id\": {\r",
+											"            \"type\": \"integer\",\r",
+											"        }\r",
+											"    },\r",
+											"};\r",
+											"pm.test('Schema is valid', function() {\r",
+											"  pm.expect(tv4.validate(pm.response.json(), schema)).to.be.true;\r",
+											"});\r",
+											"var jsonData = pm.response.json();\r",
+											"pm.test(\"Correct title\", function () {\r",
+											"    pm.expect(jsonData.title).to.eql(pm.collectionVariables.get(\"title_post_new\"));\r",
+											"});\r",
+											"pm.test(\"Correct content\", function () {\r",
+											"    pm.expect(jsonData.content).to.eql(pm.collectionVariables.get(\"content_post_new\"));\r",
+											"});\r",
+											"pm.test(\"Correct author\", function () {\r",
+											"    pm.expect(jsonData.author).to.eql(pm.collectionVariables.get(\"author_post\"));\r",
+											"});\r",
+											"pm.test(\"Correct id\", function () {\r",
+											"    pm.expect(jsonData.id).to.eql(pm.collectionVariables.get(\"id_post\"));\r",
+											"});\r",
+											"pm.test(\"Correct publication_datetime\", function () {\r",
+											"    pm.expect(jsonData.publication_datetime).to.eql(pm.collectionVariables.get(\"publication_datetime_post\"));\r",
+											"});\r",
+											"pm.test(\"Response time is less than 400ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://hr.recruit.liis.su/qa0/v1/api/{{username}}/post/{{id_post}}",
+									"protocol": "https",
+									"host": [
+										"hr",
+										"recruit",
+										"liis",
+										"su"
+									],
+									"path": [
+										"qa0",
+										"v1",
+										"api",
+										"{{username}}",
+										"post",
+										"{{id_post}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST Post 2",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", function () {\r",
+											"    pm.response.to.have.status(201);\r",
+											"});\r",
+											"pm.collectionVariables.set(\"id_post_2\", pm.response.json().id);\r",
+											"pm.collectionVariables.set(\"publication_datetime_post_2\", pm.response.json().publication_datetime);\r",
+											"var jsonData = pm.response.json();\r",
+											"pm.test(\"Correct title\", function () {\r",
+											"    pm.expect(jsonData.title).to.eql(pm.collectionVariables.get(\"title_post\"));\r",
+											"});\r",
+											"pm.test(\"Correct content\", function () {\r",
+											"    pm.expect(jsonData.content).to.eql(pm.collectionVariables.get(\"content_post\"));\r",
+											"});\r",
+											"const schema = {\r",
+											"    \"required\": [\r",
+											"        \"title\",\r",
+											"        \"content\",\r",
+											"        \"author\",\r",
+											"        \"publication_datetime\",\r",
+											"        \"id\"\r",
+											"    ],\r",
+											"    \"properties\": {\r",
+											"        \"title\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"content\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"author\": {\r",
+											"            \"type\": \"integer\",\r",
+											"        },\r",
+											"        \"publication_datetime\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"id\": {\r",
+											"            \"type\": \"integer\",\r",
+											"        }\r",
+											"    },\r",
+											"};\r",
+											"pm.test('Schema is valid', function() {\r",
+											"  pm.expect(tv4.validate(pm.response.json(), schema)).to.be.true;\r",
+											"});\r",
+											"pm.test(\"Response time is less than 400ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"{{title_post}}\",\r\n    \"content\": \"{{content_post}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://hr.recruit.liis.su/qa0/v1/api/{{username}}/posts",
+									"protocol": "https",
+									"host": [
+										"hr",
+										"recruit",
+										"liis",
+										"su"
+									],
+									"path": [
+										"qa0",
+										"v1",
+										"api",
+										"{{username}}",
+										"posts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET Posts",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response time is less than 400ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+											"});\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"var jsonData = pm.response.json();\r",
+											"pm.collectionVariables.set(\"data_length_post\", jsonData.length);\r",
+											"pm.test(\"Correct title\", function () {\r",
+											"    pm.expect(jsonData[jsonData.length - 2].title).to.eql(pm.collectionVariables.get(\"title_post_new\"));\r",
+											"    pm.expect(jsonData[jsonData.length - 1].title).to.eql(pm.collectionVariables.get(\"title_post\"));\r",
+											"});\r",
+											"pm.test(\"Correct content\", function () {\r",
+											"    pm.expect(jsonData[jsonData.length - 2].content).to.eql(pm.collectionVariables.get(\"content_post_new\"));\r",
+											"    pm.expect(jsonData[jsonData.length - 1].content).to.eql(pm.collectionVariables.get(\"content_post\"));\r",
+											"});\r",
+											"pm.test(\"Correct author\", function () {\r",
+											"    pm.expect(jsonData[jsonData.length - 2].author).to.eql(pm.collectionVariables.get(\"author_post\"));\r",
+											"    pm.expect(jsonData[jsonData.length - 1].author).to.eql(pm.collectionVariables.get(\"author_post\"));\r",
+											"});\r",
+											"pm.test(\"Correct id\", function () {\r",
+											"    pm.expect(jsonData[jsonData.length - 2].id).to.eql(pm.collectionVariables.get(\"id_post\"));\r",
+											"    pm.expect(jsonData[jsonData.length - 1].id).to.eql(pm.collectionVariables.get(\"id_post_2\"));\r",
+											"});\r",
+											"pm.test(\"Correct publication_datetime\", function () {\r",
+											"    pm.expect(jsonData[jsonData.length - 2].publication_datetime).to.eql(pm.collectionVariables.get(\"publication_datetime_post\"));\r",
+											"    pm.expect(jsonData[jsonData.length - 1].publication_datetime).to.eql(pm.collectionVariables.get(\"publication_datetime_post_2\"));\r",
+											"});\r",
+											"const schema = {\r",
+											"    \"required\": [\r",
+											"        \"title\",\r",
+											"        \"content\",\r",
+											"        \"author\",\r",
+											"        \"publication_datetime\",\r",
+											"        \"id\"\r",
+											"    ],\r",
+											"    \"properties\": {\r",
+											"        \"title\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"content\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"author\": {\r",
+											"            \"type\": \"integer\",\r",
+											"        },\r",
+											"        \"publication_datetime\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"id\": {\r",
+											"            \"type\": \"integer\",\r",
+											"        }\r",
+											"    },\r",
+											"};\r",
+											"pm.test('Schema is valid', function() {\r",
+											"  pm.expect(tv4.validate(pm.response.json(), schema)).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://hr.recruit.liis.su/qa0/v1/api/{{username}}/posts",
+									"protocol": "https",
+									"host": [
+										"hr",
+										"recruit",
+										"liis",
+										"su"
+									],
+									"path": [
+										"qa0",
+										"v1",
+										"api",
+										"{{username}}",
+										"posts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DEL Post",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", function () {\r",
+											"    pm.response.to.have.status(204);\r",
+											"});\r",
+											"pm.test(\"Response time is less than 400ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://hr.recruit.liis.su/qa0/v1/api/{{username}}/post/{{id_post}}",
+									"protocol": "https",
+									"host": [
+										"hr",
+										"recruit",
+										"liis",
+										"su"
+									],
+									"path": [
+										"qa0",
+										"v1",
+										"api",
+										"{{username}}",
+										"post",
+										"{{id_post}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET Posts After DEL",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response time is less than 400ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+											"});\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"pm.test(\"Correct data length\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    var newLength = pm.collectionVariables.get(\"data_length_post\") - 1;\r",
+											"    pm.expect(jsonData.length).to.eql(newLength);\r",
+											"});\r",
+											"const post = {\r",
+											"    \"content\": pm.collectionVariables.get(\"content_post_new\"),\r",
+											"    \"id\": pm.collectionVariables.get(\"id_post\"),\r",
+											"    \"publication_datetime\": pm.collectionVariables.get(\"publication_datetime_post\"),\r",
+											"    \"title\": pm.collectionVariables.get(\"title_post_new\"),\r",
+											"    \"author\": pm.collectionVariables.get(\"author_post\")\r",
+											"};\r",
+											"const post2 = {\r",
+											"    \"content\": pm.collectionVariables.get(\"content_post\"),\r",
+											"    \"id\": pm.collectionVariables.get(\"id_post_2\"),\r",
+											"    \"publication_datetime\": pm.collectionVariables.get(\"publication_datetime_post_2\"),\r",
+											"    \"title\": pm.collectionVariables.get(\"title_post\"),\r",
+											"    \"author\": pm.collectionVariables.get(\"author_post\")\r",
+											"};\r",
+											"pm.test('Correct data', function() {\r",
+											"  pm.expect(pm.response.json()).to.not.deep.include(post);\r",
+											"  pm.expect(pm.response.json()).to.deep.include(post2);\r",
+											"});\r",
+											"const schema = {\r",
+											"    \"required\": [\r",
+											"        \"title\",\r",
+											"        \"content\",\r",
+											"        \"author\",\r",
+											"        \"publication_datetime\",\r",
+											"        \"id\"\r",
+											"    ],\r",
+											"    \"properties\": {\r",
+											"        \"title\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"content\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"author\": {\r",
+											"            \"type\": \"integer\",\r",
+											"        },\r",
+											"        \"publication_datetime\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"id\": {\r",
+											"            \"type\": \"integer\",\r",
+											"        }\r",
+											"    },\r",
+											"};\r",
+											"pm.test('Schema is valid', function() {\r",
+											"  pm.expect(tv4.validate(pm.response.json(), schema)).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://hr.recruit.liis.su/qa0/v1/api/{{username}}/posts",
+									"protocol": "https",
+									"host": [
+										"hr",
+										"recruit",
+										"liis",
+										"su"
+									],
+									"path": [
+										"qa0",
+										"v1",
+										"api",
+										"{{username}}",
+										"posts"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Comments",
+					"item": [
+						{
+							"name": "POST Comment",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", function () {\r",
+											"    pm.response.to.have.status(201);\r",
+											"});\r",
+											"pm.collectionVariables.set(\"id_comment\", pm.response.json().id);\r",
+											"pm.collectionVariables.set(\"publication_datetime_comment\", pm.response.json().publication_datetime);\r",
+											"var jsonData = pm.response.json();\r",
+											"pm.test(\"Correct title\", function () {\r",
+											"    pm.expect(jsonData.title).to.eql(pm.collectionVariables.get(\"title_comment\"));\r",
+											"});\r",
+											"pm.test(\"Correct content\", function () {\r",
+											"    pm.expect(jsonData.content).to.eql(pm.collectionVariables.get(\"content_comment\"));\r",
+											"});\r",
+											"pm.test(\"Correct post\", function () {\r",
+											"    pm.expect(jsonData.post).to.eql(pm.collectionVariables.get(\"id_post_2\"));\r",
+											"});\r",
+											"pm.test(\"Correct author\", function () {\r",
+											"    pm.expect(jsonData.author).to.eql(pm.collectionVariables.get(\"author_post\"));\r",
+											"});\r",
+											"const schema = {\r",
+											"    \"required\": [\r",
+											"        \"title\",\r",
+											"        \"content\",\r",
+											"        \"author\",\r",
+											"        \"publication_datetime\",\r",
+											"        \"id\",\r",
+											"        \"post\"\r",
+											"    ],\r",
+											"    \"properties\": {\r",
+											"        \"title\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"content\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"author\": {\r",
+											"            \"type\": \"integer\",\r",
+											"        },\r",
+											"        \"publication_datetime\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"id\": {\r",
+											"            \"type\": \"integer\",\r",
+											"        },\r",
+											"        \"post\": {\r",
+											"            \"type\": \"integer\",\r",
+											"        }\r",
+											"    },\r",
+											"};\r",
+											"pm.test('Schema is valid', function() {\r",
+											"  pm.expect(tv4.validate(pm.response.json(), schema)).to.be.true;\r",
+											"});\r",
+											"pm.test(\"Response time is less than 400ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"{{title_comment}}\",\r\n    \"content\": \"{{content_comment}}\",\r\n    \"post\": {{id_post_2}}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://hr.recruit.liis.su/qa0/v1/api/{{username}}/comments",
+									"protocol": "https",
+									"host": [
+										"hr",
+										"recruit",
+										"liis",
+										"su"
+									],
+									"path": [
+										"qa0",
+										"v1",
+										"api",
+										"{{username}}",
+										"comments"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET Comment",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"var jsonData = pm.response.json();\r",
+											"pm.test(\"Correct title\", function () {\r",
+											"    pm.expect(jsonData.title).to.eql(pm.collectionVariables.get(\"title_comment\"));\r",
+											"});\r",
+											"pm.test(\"Correct content\", function () {\r",
+											"    pm.expect(jsonData.content).to.eql(pm.collectionVariables.get(\"content_comment\"));\r",
+											"});\r",
+											"pm.test(\"Correct post\", function () {\r",
+											"    pm.expect(jsonData.post).to.eql(pm.collectionVariables.get(\"id_post_2\"));\r",
+											"});\r",
+											"pm.test(\"Correct author\", function () {\r",
+											"    pm.expect(jsonData.author).to.eql(pm.collectionVariables.get(\"author_post\"));\r",
+											"});\r",
+											"pm.test(\"Correct id\", function () {\r",
+											"    pm.expect(jsonData.id).to.eql(pm.collectionVariables.get(\"id_comment\"));\r",
+											"});\r",
+											"pm.test(\"Correct publication_datetime\", function () {\r",
+											"    pm.expect(jsonData.publication_datetime).to.eql(pm.collectionVariables.get(\"publication_datetime_comment\"));\r",
+											"});\r",
+											"const schema = {\r",
+											"    \"required\": [\r",
+											"        \"title\",\r",
+											"        \"content\",\r",
+											"        \"author\",\r",
+											"        \"publication_datetime\",\r",
+											"        \"id\",\r",
+											"        \"post\"\r",
+											"    ],\r",
+											"    \"properties\": {\r",
+											"        \"title\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"content\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"author\": {\r",
+											"            \"type\": \"integer\",\r",
+											"        },\r",
+											"        \"publication_datetime\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"id\": {\r",
+											"            \"type\": \"integer\",\r",
+											"        },\r",
+											"        \"post\": {\r",
+											"            \"type\": \"integer\",\r",
+											"        }\r",
+											"    },\r",
+											"};\r",
+											"pm.test('Schema is valid', function() {\r",
+											"  pm.expect(tv4.validate(pm.response.json(), schema)).to.be.true;\r",
+											"});\r",
+											"pm.test(\"Response time is less than 400ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://hr.recruit.liis.su/qa0/v1/api/{{username}}/comment/{{id_comment}}",
+									"protocol": "https",
+									"host": [
+										"hr",
+										"recruit",
+										"liis",
+										"su"
+									],
+									"path": [
+										"qa0",
+										"v1",
+										"api",
+										"{{username}}",
+										"comment",
+										"{{id_comment}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PUT Comment",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"const shema = {\r",
+											"    \"message\": \"updated\",\r",
+											"    \"type\": \"success\"\r",
+											"};\r",
+											"pm.test('Schema is valid', function() {\r",
+											"  pm.expect(pm.response.json()).to.deep.include(shema);\r",
+											"});\r",
+											"pm.test(\"Response time is less than 400ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"{{title_comment_new}}\",\r\n    \"content\": \"{{content_comment_new}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://hr.recruit.liis.su/qa0/v1/api/{{username}}/comment/{{id_comment}}",
+									"protocol": "https",
+									"host": [
+										"hr",
+										"recruit",
+										"liis",
+										"su"
+									],
+									"path": [
+										"qa0",
+										"v1",
+										"api",
+										"{{username}}",
+										"comment",
+										"{{id_comment}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET Updated Comment",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"var jsonData = pm.response.json();\r",
+											"pm.test(\"Correct title\", function () {\r",
+											"    pm.expect(jsonData.title).to.eql(pm.collectionVariables.get(\"title_comment_new\"));\r",
+											"});\r",
+											"pm.test(\"Correct content\", function () {\r",
+											"    pm.expect(jsonData.content).to.eql(pm.collectionVariables.get(\"content_comment_new\"));\r",
+											"});\r",
+											"pm.test(\"Correct post\", function () {\r",
+											"    pm.expect(jsonData.post).to.eql(pm.collectionVariables.get(\"id_post_2\"));\r",
+											"});\r",
+											"pm.test(\"Correct author\", function () {\r",
+											"    pm.expect(jsonData.author).to.eql(pm.collectionVariables.get(\"author_post\"));\r",
+											"});\r",
+											"pm.test(\"Correct id\", function () {\r",
+											"    pm.expect(jsonData.id).to.eql(pm.collectionVariables.get(\"id_comment\"));\r",
+											"});\r",
+											"pm.test(\"Correct publication_datetime\", function () {\r",
+											"    pm.expect(jsonData.publication_datetime).to.eql(pm.collectionVariables.get(\"publication_datetime_comment\"));\r",
+											"});\r",
+											"const schema = {\r",
+											"    \"required\": [\r",
+											"        \"title\",\r",
+											"        \"content\",\r",
+											"        \"author\",\r",
+											"        \"publication_datetime\",\r",
+											"        \"id\",\r",
+											"        \"post\"\r",
+											"    ],\r",
+											"    \"properties\": {\r",
+											"        \"title\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"content\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"author\": {\r",
+											"            \"type\": \"integer\",\r",
+											"        },\r",
+											"        \"publication_datetime\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"id\": {\r",
+											"            \"type\": \"integer\",\r",
+											"        },\r",
+											"        \"post\": {\r",
+											"            \"type\": \"integer\",\r",
+											"        }\r",
+											"    },\r",
+											"};\r",
+											"pm.test('Schema is valid', function() {\r",
+											"  pm.expect(tv4.validate(pm.response.json(), schema)).to.be.true;\r",
+											"});\r",
+											"pm.test(\"Response time is less than 400ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://hr.recruit.liis.su/qa0/v1/api/{{username}}/comment/{{id_comment}}",
+									"protocol": "https",
+									"host": [
+										"hr",
+										"recruit",
+										"liis",
+										"su"
+									],
+									"path": [
+										"qa0",
+										"v1",
+										"api",
+										"{{username}}",
+										"comment",
+										"{{id_comment}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST Comment 2",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", function () {\r",
+											"    pm.response.to.have.status(201);\r",
+											"});\r",
+											"pm.collectionVariables.set(\"id_comment_2\", pm.response.json().id);\r",
+											"pm.collectionVariables.set(\"publication_datetime_comment_2\", pm.response.json().publication_datetime);\r",
+											"var jsonData = pm.response.json();\r",
+											"pm.test(\"Correct title\", function () {\r",
+											"    pm.expect(jsonData.title).to.eql(pm.collectionVariables.get(\"title_comment\"));\r",
+											"});\r",
+											"pm.test(\"Correct content\", function () {\r",
+											"    pm.expect(jsonData.content).to.eql(pm.collectionVariables.get(\"content_comment\"));\r",
+											"});\r",
+											"pm.test(\"Correct post\", function () {\r",
+											"    pm.expect(jsonData.post).to.eql(pm.collectionVariables.get(\"id_post_2\"));\r",
+											"});\r",
+											"pm.test(\"Correct author\", function () {\r",
+											"    pm.expect(jsonData.author).to.eql(pm.collectionVariables.get(\"author_post\"));\r",
+											"});\r",
+											"const schema = {\r",
+											"    \"required\": [\r",
+											"        \"title\",\r",
+											"        \"content\",\r",
+											"        \"author\",\r",
+											"        \"publication_datetime\",\r",
+											"        \"id\",\r",
+											"        \"post\"\r",
+											"    ],\r",
+											"    \"properties\": {\r",
+											"        \"title\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"content\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"author\": {\r",
+											"            \"type\": \"integer\",\r",
+											"        },\r",
+											"        \"publication_datetime\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"id\": {\r",
+											"            \"type\": \"integer\",\r",
+											"        },\r",
+											"        \"post\": {\r",
+											"            \"type\": \"integer\",\r",
+											"        }\r",
+											"    },\r",
+											"};\r",
+											"pm.test('Schema is valid', function() {\r",
+											"  pm.expect(tv4.validate(pm.response.json(), schema)).to.be.true;\r",
+											"});\r",
+											"pm.test(\"Response time is less than 400ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"{{title_comment}}\",\r\n    \"content\": \"{{content_comment}}\",\r\n    \"post\": {{id_post_2}}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://hr.recruit.liis.su/qa0/v1/api/{{username}}/comments",
+									"protocol": "https",
+									"host": [
+										"hr",
+										"recruit",
+										"liis",
+										"su"
+									],
+									"path": [
+										"qa0",
+										"v1",
+										"api",
+										"{{username}}",
+										"comments"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET Comments",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response time is less than 400ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+											"});\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"var jsonData = pm.response.json();\r",
+											"pm.collectionVariables.set(\"data_length_comment\", jsonData.length);\r",
+											"pm.test(\"Correct title\", function () {\r",
+											"    pm.expect(jsonData[jsonData.length - 2].title).to.eql(pm.collectionVariables.get(\"title_comment_new\"));\r",
+											"    pm.expect(jsonData[jsonData.length - 1].title).to.eql(pm.collectionVariables.get(\"title_comment\"));\r",
+											"});\r",
+											"pm.test(\"Correct content\", function () {\r",
+											"    pm.expect(jsonData[jsonData.length - 2].content).to.eql(pm.collectionVariables.get(\"content_comment_new\"));\r",
+											"    pm.expect(jsonData[jsonData.length - 1].content).to.eql(pm.collectionVariables.get(\"content_comment\"));\r",
+											"});\r",
+											"pm.test(\"Correct author\", function () {\r",
+											"    pm.expect(jsonData[jsonData.length - 2].author).to.eql(pm.collectionVariables.get(\"author_post\"));\r",
+											"    pm.expect(jsonData[jsonData.length - 1].author).to.eql(pm.collectionVariables.get(\"author_post\"));\r",
+											"});\r",
+											"pm.test(\"Correct id\", function () {\r",
+											"    pm.expect(jsonData[jsonData.length - 2].id).to.eql(pm.collectionVariables.get(\"id_comment\"));\r",
+											"    pm.expect(jsonData[jsonData.length - 1].id).to.eql(pm.collectionVariables.get(\"id_comment_2\"));\r",
+											"});\r",
+											"pm.test(\"Correct publication_datetime\", function () {\r",
+											"    pm.expect(jsonData[jsonData.length - 2].publication_datetime).to.eql(pm.collectionVariables.get(\"publication_datetime_comment\"));\r",
+											"    pm.expect(jsonData[jsonData.length - 1].publication_datetime).to.eql(pm.collectionVariables.get(\"publication_datetime_comment_2\"));\r",
+											"});\r",
+											"const schema = {\r",
+											"    \"required\": [\r",
+											"        \"title\",\r",
+											"        \"content\",\r",
+											"        \"author\",\r",
+											"        \"publication_datetime\",\r",
+											"        \"id\"\r",
+											"    ],\r",
+											"    \"properties\": {\r",
+											"        \"title\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"content\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"author\": {\r",
+											"            \"type\": \"integer\",\r",
+											"        },\r",
+											"        \"publication_datetime\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"id\": {\r",
+											"            \"type\": \"integer\",\r",
+											"        }\r",
+											"    },\r",
+											"};\r",
+											"pm.test('Schema is valid', function() {\r",
+											"  pm.expect(tv4.validate(pm.response.json(), schema)).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://hr.recruit.liis.su/qa0/v1/api/{{username}}/comments",
+									"protocol": "https",
+									"host": [
+										"hr",
+										"recruit",
+										"liis",
+										"su"
+									],
+									"path": [
+										"qa0",
+										"v1",
+										"api",
+										"{{username}}",
+										"comments"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DEL Comment",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", function () {\r",
+											"    pm.response.to.have.status(204);\r",
+											"});\r",
+											"pm.test(\"Response time is less than 400ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://hr.recruit.liis.su/qa0/v1/api/{{username}}/comment/{{id_comment}}",
+									"protocol": "https",
+									"host": [
+										"hr",
+										"recruit",
+										"liis",
+										"su"
+									],
+									"path": [
+										"qa0",
+										"v1",
+										"api",
+										"{{username}}",
+										"comment",
+										"{{id_comment}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET Comments After DEL",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response time is less than 400ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+											"});\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"const comment = {\r",
+											"    \"content\": pm.collectionVariables.get(\"content_comment_new\"),\r",
+											"    \"id\": pm.collectionVariables.get(\"id_comment\"),\r",
+											"    \"post\": pm.collectionVariables.get(\"id_post_2\"),\r",
+											"    \"publication_datetime\": pm.collectionVariables.get(\"publication_datetime_comment\"),\r",
+											"    \"title\": pm.collectionVariables.get(\"title_comment_new\"),\r",
+											"    \"author\": pm.collectionVariables.get(\"author_post\")\r",
+											"};\r",
+											"const comment2 = {\r",
+											"    \"content\": pm.collectionVariables.get(\"content_comment\"),\r",
+											"    \"id\": pm.collectionVariables.get(\"id_comment_2\"),\r",
+											"    \"post\": pm.collectionVariables.get(\"id_post_2\"),\r",
+											"    \"publication_datetime\": pm.collectionVariables.get(\"publication_datetime_comment_2\"),\r",
+											"    \"title\": pm.collectionVariables.get(\"title_comment\"),\r",
+											"    \"author\": pm.collectionVariables.get(\"author_post\")\r",
+											"};\r",
+											"pm.test('Correct data', function() {\r",
+											"  pm.expect(pm.response.json()).to.not.deep.include(comment);\r",
+											"  pm.expect(pm.response.json()).to.deep.include(comment2);\r",
+											"});\r",
+											"const schema = {\r",
+											"    \"required\": [\r",
+											"        \"title\",\r",
+											"        \"content\",\r",
+											"        \"author\",\r",
+											"        \"publication_datetime\",\r",
+											"        \"id\"\r",
+											"    ],\r",
+											"    \"properties\": {\r",
+											"        \"title\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"content\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"author\": {\r",
+											"            \"type\": \"integer\",\r",
+											"        },\r",
+											"        \"publication_datetime\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"id\": {\r",
+											"            \"type\": \"integer\",\r",
+											"        }\r",
+											"    },\r",
+											"};\r",
+											"pm.test('Schema is valid', function() {\r",
+											"  pm.expect(tv4.validate(pm.response.json(), schema)).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://hr.recruit.liis.su/qa0/v1/api/{{username}}/comments",
+									"protocol": "https",
+									"host": [
+										"hr",
+										"recruit",
+										"liis",
+										"su"
+									],
+									"path": [
+										"qa0",
+										"v1",
+										"api",
+										"{{username}}",
+										"comments"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"auth": {
+				"type": "basic",
+				"basic": [
+					{
+						"key": "username",
+						"value": "tsygnas@gmail.com",
+						"type": "string"
+					},
+					{
+						"key": "password",
+						"value": "123",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "V2",
+			"item": [
+				{
+					"name": "Posts",
+					"item": [
+						{
+							"name": "POST Post",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", function () {\r",
+											"    pm.response.to.have.status(201);\r",
+											"});\r",
+											"pm.collectionVariables.set(\"id_post\", pm.response.json().id);\r",
+											"pm.collectionVariables.set(\"author_post\", pm.response.json().author);\r",
+											"pm.collectionVariables.set(\"publication_datetime_post\", pm.response.json().publication_datetime);\r",
+											"pm.test(\"Response time is less than 400ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+											"});\r",
+											"var jsonData = pm.response.json();\r",
+											"pm.test(\"Correct name\", function () {\r",
+											"    pm.expect(jsonData.name).to.eql(pm.collectionVariables.get(\"title_post\"));\r",
+											"});\r",
+											"pm.test(\"Correct content\", function () {\r",
+											"    pm.expect(jsonData.content).to.eql(pm.collectionVariables.get(\"content_post\"));\r",
+											"});\r",
+											"const schema = {\r",
+											"    \"required\": [\r",
+											"        \"name\",\r",
+											"        \"content\",\r",
+											"        \"author\",\r",
+											"        \"publication_datetime\",\r",
+											"        \"id\"\r",
+											"    ],\r",
+											"    \"properties\": {\r",
+											"        \"name\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"content\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"author\": {\r",
+											"            \"type\": \"integer\",\r",
+											"        },\r",
+											"        \"publication_datetime\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"id\": {\r",
+											"            \"type\": \"integer\",\r",
+											"        }\r",
+											"    },\r",
+											"};\r",
+											"pm.test('Schema is valid', function() {\r",
+											"  pm.expect(tv4.validate(pm.response.json(), schema)).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"{{title_post}}\",\r\n    \"content\": \"{{content_post}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://hr.recruit.liis.su/qa0/v2/api/{{username}}/posts",
+									"protocol": "https",
+									"host": [
+										"hr",
+										"recruit",
+										"liis",
+										"su"
+									],
+									"path": [
+										"qa0",
+										"v2",
+										"api",
+										"{{username}}",
+										"posts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET Post",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"var jsonData = pm.response.json();\r",
+											"pm.test(\"Correct name\", function () {\r",
+											"    pm.expect(jsonData.name).to.eql(pm.collectionVariables.get(\"title_post\"));\r",
+											"});\r",
+											"pm.test(\"Correct content\", function () {\r",
+											"    pm.expect(jsonData.content).to.eql(pm.collectionVariables.get(\"content_post\"));\r",
+											"});\r",
+											"pm.test(\"Correct author\", function () {\r",
+											"    pm.expect(jsonData.author).to.eql(pm.collectionVariables.get(\"author_post\"));\r",
+											"});\r",
+											"pm.test(\"Correct id\", function () {\r",
+											"    pm.expect(jsonData.id).to.eql(pm.collectionVariables.get(\"id_post\"));\r",
+											"});\r",
+											"pm.test(\"Correct publication_datetime\", function () {\r",
+											"    pm.expect(jsonData.publication_datetime).to.eql(pm.collectionVariables.get(\"publication_datetime_post\"));\r",
+											"});\r",
+											"pm.test(\"Response time is less than 400ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+											"});\r",
+											"const schema = {\r",
+											"    \"required\": [\r",
+											"        \"name\",\r",
+											"        \"content\",\r",
+											"        \"author\",\r",
+											"        \"publication_datetime\",\r",
+											"        \"id\"\r",
+											"    ],\r",
+											"    \"properties\": {\r",
+											"        \"name\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"content\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"author\": {\r",
+											"            \"type\": \"integer\",\r",
+											"        },\r",
+											"        \"publication_datetime\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"id\": {\r",
+											"            \"type\": \"integer\",\r",
+											"        }\r",
+											"    },\r",
+											"};\r",
+											"pm.test('Schema is valid', function() {\r",
+											"  pm.expect(tv4.validate(pm.response.json(), schema)).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://hr.recruit.liis.su/qa0/v2/api/{{username}}/post/{{id_post}}",
+									"protocol": "https",
+									"host": [
+										"hr",
+										"recruit",
+										"liis",
+										"su"
+									],
+									"path": [
+										"qa0",
+										"v2",
+										"api",
+										"{{username}}",
+										"post",
+										"{{id_post}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PUT Post",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"const message = {\r",
+											"    \"message\": \"updated\",\r",
+											"    \"type\": \"success\"\r",
+											"};\r",
+											"pm.test('Correct message', function() {\r",
+											"  pm.expect(pm.response.json()).to.deep.include(message);\r",
+											"});\r",
+											"pm.test(\"Response time is less than 400ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+											"});\r",
+											"const schema = {\r",
+											"    \"required\": [\r",
+											"        \"message\",\r",
+											"        \"type\"\r",
+											"    ],\r",
+											"    \"properties\": {\r",
+											"        \"message\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"type\": {\r",
+											"            \"type\": \"string\",\r",
+											"        }\r",
+											"    },\r",
+											"};\r",
+											"pm.test('Schema is valid', function() {\r",
+											"  pm.expect(tv4.validate(pm.response.json(), schema)).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"{{title_post_new}}\",\r\n    \"content\": \"{{content_post_new}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://hr.recruit.liis.su/qa0/v2/api/{{username}}/post/{{id_post}}",
+									"protocol": "https",
+									"host": [
+										"hr",
+										"recruit",
+										"liis",
+										"su"
+									],
+									"path": [
+										"qa0",
+										"v2",
+										"api",
+										"{{username}}",
+										"post",
+										"{{id_post}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET Updated Post",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"const schema = {\r",
+											"    \"required\": [\r",
+											"        \"name\",\r",
+											"        \"content\",\r",
+											"        \"author\",\r",
+											"        \"publication_datetime\",\r",
+											"        \"id\"\r",
+											"    ],\r",
+											"    \"properties\": {\r",
+											"        \"name\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"content\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"author\": {\r",
+											"            \"type\": \"integer\",\r",
+											"        },\r",
+											"        \"publication_datetime\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"id\": {\r",
+											"            \"type\": \"integer\",\r",
+											"        }\r",
+											"    },\r",
+											"};\r",
+											"pm.test('Schema is valid', function() {\r",
+											"  pm.expect(tv4.validate(pm.response.json(), schema)).to.be.true;\r",
+											"});\r",
+											"var jsonData = pm.response.json();\r",
+											"pm.test(\"Correct name\", function () {\r",
+											"    pm.expect(jsonData.name).to.eql(pm.collectionVariables.get(\"title_post_new\"));\r",
+											"});\r",
+											"pm.test(\"Correct content\", function () {\r",
+											"    pm.expect(jsonData.content).to.eql(pm.collectionVariables.get(\"content_post_new\"));\r",
+											"});\r",
+											"pm.test(\"Correct author\", function () {\r",
+											"    pm.expect(jsonData.author).to.eql(pm.collectionVariables.get(\"author_post\"));\r",
+											"});\r",
+											"pm.test(\"Correct id\", function () {\r",
+											"    pm.expect(jsonData.id).to.eql(pm.collectionVariables.get(\"id_post\"));\r",
+											"});\r",
+											"pm.test(\"Correct publication_datetime\", function () {\r",
+											"    pm.expect(jsonData.publication_datetime).to.eql(pm.collectionVariables.get(\"publication_datetime_post\"));\r",
+											"});\r",
+											"pm.test(\"Response time is less than 400ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://hr.recruit.liis.su/qa0/v2/api/{{username}}/post/{{id_post}}",
+									"protocol": "https",
+									"host": [
+										"hr",
+										"recruit",
+										"liis",
+										"su"
+									],
+									"path": [
+										"qa0",
+										"v2",
+										"api",
+										"{{username}}",
+										"post",
+										"{{id_post}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST Post 2",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", function () {\r",
+											"    pm.response.to.have.status(201);\r",
+											"});\r",
+											"pm.collectionVariables.set(\"id_post_2\", pm.response.json().id);\r",
+											"pm.collectionVariables.set(\"publication_datetime_post_2\", pm.response.json().publication_datetime);\r",
+											"var jsonData = pm.response.json();\r",
+											"pm.test(\"Correct name\", function () {\r",
+											"    pm.expect(jsonData.name).to.eql(pm.collectionVariables.get(\"title_post\"));\r",
+											"});\r",
+											"pm.test(\"Correct content\", function () {\r",
+											"    pm.expect(jsonData.content).to.eql(pm.collectionVariables.get(\"content_post\"));\r",
+											"});\r",
+											"const schema = {\r",
+											"    \"required\": [\r",
+											"        \"name\",\r",
+											"        \"content\",\r",
+											"        \"author\",\r",
+											"        \"publication_datetime\",\r",
+											"        \"id\"\r",
+											"    ],\r",
+											"    \"properties\": {\r",
+											"        \"name\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"content\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"author\": {\r",
+											"            \"type\": \"integer\",\r",
+											"        },\r",
+											"        \"publication_datetime\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"id\": {\r",
+											"            \"type\": \"integer\",\r",
+											"        }\r",
+											"    },\r",
+											"};\r",
+											"pm.test('Schema is valid', function() {\r",
+											"  pm.expect(tv4.validate(pm.response.json(), schema)).to.be.true;\r",
+											"});\r",
+											"pm.test(\"Response time is less than 400ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"{{title_post}}\",\r\n    \"content\": \"{{content_post}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://hr.recruit.liis.su/qa0/v2/api/{{username}}/posts",
+									"protocol": "https",
+									"host": [
+										"hr",
+										"recruit",
+										"liis",
+										"su"
+									],
+									"path": [
+										"qa0",
+										"v2",
+										"api",
+										"{{username}}",
+										"posts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET Posts",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response time is less than 400ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+											"});\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"var jsonData = pm.response.json();\r",
+											"pm.collectionVariables.set(\"data_length_post\", jsonData.length);\r",
+											"pm.test(\"Correct name\", function () {\r",
+											"    pm.expect(jsonData[jsonData.length - 2].name).to.eql(pm.collectionVariables.get(\"title_post_new\"));\r",
+											"    pm.expect(jsonData[jsonData.length - 1].name).to.eql(pm.collectionVariables.get(\"title_post\"));\r",
+											"});\r",
+											"pm.test(\"Correct content\", function () {\r",
+											"    pm.expect(jsonData[jsonData.length - 2].content).to.eql(pm.collectionVariables.get(\"content_post_new\"));\r",
+											"    pm.expect(jsonData[jsonData.length - 1].content).to.eql(pm.collectionVariables.get(\"content_post\"));\r",
+											"});\r",
+											"pm.test(\"Correct author\", function () {\r",
+											"    pm.expect(jsonData[jsonData.length - 2].author).to.eql(pm.collectionVariables.get(\"author_post\"));\r",
+											"    pm.expect(jsonData[jsonData.length - 1].author).to.eql(pm.collectionVariables.get(\"author_post\"));\r",
+											"});\r",
+											"pm.test(\"Correct id\", function () {\r",
+											"    pm.expect(jsonData[jsonData.length - 2].id).to.eql(pm.collectionVariables.get(\"id_post\"));\r",
+											"    pm.expect(jsonData[jsonData.length - 1].id).to.eql(pm.collectionVariables.get(\"id_post_2\"));\r",
+											"});\r",
+											"pm.test(\"Correct publication_datetime\", function () {\r",
+											"    pm.expect(jsonData[jsonData.length - 2].publication_datetime).to.eql(pm.collectionVariables.get(\"publication_datetime_post\"));\r",
+											"    pm.expect(jsonData[jsonData.length - 1].publication_datetime).to.eql(pm.collectionVariables.get(\"publication_datetime_post_2\"));\r",
+											"});\r",
+											"const schema = {\r",
+											"    \"required\": [\r",
+											"        \"name\",\r",
+											"        \"content\",\r",
+											"        \"author\",\r",
+											"        \"publication_datetime\",\r",
+											"        \"id\"\r",
+											"    ],\r",
+											"    \"properties\": {\r",
+											"        \"name\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"content\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"author\": {\r",
+											"            \"type\": \"integer\",\r",
+											"        },\r",
+											"        \"publication_datetime\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"id\": {\r",
+											"            \"type\": \"integer\",\r",
+											"        }\r",
+											"    },\r",
+											"};\r",
+											"pm.test('Schema is valid', function() {\r",
+											"  pm.expect(tv4.validate(pm.response.json(), schema)).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://hr.recruit.liis.su/qa0/v2/api/{{username}}/posts",
+									"protocol": "https",
+									"host": [
+										"hr",
+										"recruit",
+										"liis",
+										"su"
+									],
+									"path": [
+										"qa0",
+										"v2",
+										"api",
+										"{{username}}",
+										"posts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET Posts Pagination",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response time is less than 400ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+											"});\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"var jsonData = pm.response.json();\r",
+											"pm.collectionVariables.set(\"data_length_post\", jsonData.length);\r",
+											"pm.test(\"Correct name\", function () {\r",
+											"    pm.expect(jsonData[jsonData.length - 2].name).to.eql(pm.collectionVariables.get(\"title_post_new\"));\r",
+											"    pm.expect(jsonData[jsonData.length - 1].name).to.eql(pm.collectionVariables.get(\"title_post\"));\r",
+											"});\r",
+											"pm.test(\"Correct content\", function () {\r",
+											"    pm.expect(jsonData[jsonData.length - 2].content).to.eql(pm.collectionVariables.get(\"content_post_new\"));\r",
+											"    pm.expect(jsonData[jsonData.length - 1].content).to.eql(pm.collectionVariables.get(\"content_post\"));\r",
+											"});\r",
+											"pm.test(\"Correct author\", function () {\r",
+											"    pm.expect(jsonData[jsonData.length - 2].author).to.eql(pm.collectionVariables.get(\"author_post\"));\r",
+											"    pm.expect(jsonData[jsonData.length - 1].author).to.eql(pm.collectionVariables.get(\"author_post\"));\r",
+											"});\r",
+											"pm.test(\"Correct id\", function () {\r",
+											"    pm.expect(jsonData[jsonData.length - 2].id).to.eql(pm.collectionVariables.get(\"id_post\"));\r",
+											"    pm.expect(jsonData[jsonData.length - 1].id).to.eql(pm.collectionVariables.get(\"id_post_2\"));\r",
+											"});\r",
+											"pm.test(\"Correct publication_datetime\", function () {\r",
+											"    pm.expect(jsonData[jsonData.length - 2].publication_datetime).to.eql(pm.collectionVariables.get(\"publication_datetime_post\"));\r",
+											"    pm.expect(jsonData[jsonData.length - 1].publication_datetime).to.eql(pm.collectionVariables.get(\"publication_datetime_post_2\"));\r",
+											"});\r",
+											"const schema = {\r",
+											"    \"required\": [\r",
+											"        \"name\",\r",
+											"        \"content\",\r",
+											"        \"author\",\r",
+											"        \"publication_datetime\",\r",
+											"        \"id\"\r",
+											"    ],\r",
+											"    \"properties\": {\r",
+											"        \"name\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"content\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"author\": {\r",
+											"            \"type\": \"integer\",\r",
+											"        },\r",
+											"        \"publication_datetime\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"id\": {\r",
+											"            \"type\": \"integer\",\r",
+											"        }\r",
+											"    },\r",
+											"};\r",
+											"pm.test('Schema is valid', function() {\r",
+											"  pm.expect(tv4.validate(pm.response.json(), schema)).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://hr.recruit.liis.su/qa0/v2/api/{{username}}/posts?page=1",
+									"protocol": "https",
+									"host": [
+										"hr",
+										"recruit",
+										"liis",
+										"su"
+									],
+									"path": [
+										"qa0",
+										"v2",
+										"api",
+										"{{username}}",
+										"posts"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DEL Post",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", function () {\r",
+											"    pm.response.to.have.status(204);\r",
+											"});\r",
+											"pm.test(\"Response time is less than 400ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://hr.recruit.liis.su/qa0/v2/api/{{username}}/post/{{id_post}}",
+									"protocol": "https",
+									"host": [
+										"hr",
+										"recruit",
+										"liis",
+										"su"
+									],
+									"path": [
+										"qa0",
+										"v2",
+										"api",
+										"{{username}}",
+										"post",
+										"{{id_post}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET Posts After DEL",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response time is less than 400ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+											"});\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"pm.test(\"Correct data length\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    var newLength = pm.collectionVariables.get(\"data_length_post\") - 1;\r",
+											"    pm.expect(jsonData.length).to.eql(newLength);\r",
+											"});\r",
+											"const post = {\r",
+											"    \"content\": pm.collectionVariables.get(\"content_post_new\"),\r",
+											"    \"id\": pm.collectionVariables.get(\"id_post\"),\r",
+											"    \"publication_datetime\": pm.collectionVariables.get(\"publication_datetime_post\"),\r",
+											"    \"name\": pm.collectionVariables.get(\"title_post_new\"),\r",
+											"    \"author\": pm.collectionVariables.get(\"author_post\")\r",
+											"};\r",
+											"const post2 = {\r",
+											"    \"content\": pm.collectionVariables.get(\"content_post\"),\r",
+											"    \"id\": pm.collectionVariables.get(\"id_post_2\"),\r",
+											"    \"publication_datetime\": pm.collectionVariables.get(\"publication_datetime_post_2\"),\r",
+											"    \"name\": pm.collectionVariables.get(\"title_post\"),\r",
+											"    \"author\": pm.collectionVariables.get(\"author_post\")\r",
+											"};\r",
+											"pm.test('Correct data', function() {\r",
+											"  pm.expect(pm.response.json()).to.not.deep.include(post);\r",
+											"  pm.expect(pm.response.json()).to.deep.include(post2);\r",
+											"});\r",
+											"const schema = {\r",
+											"    \"required\": [\r",
+											"        \"name\",\r",
+											"        \"content\",\r",
+											"        \"author\",\r",
+											"        \"publication_datetime\",\r",
+											"        \"id\"\r",
+											"    ],\r",
+											"    \"properties\": {\r",
+											"        \"name\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"content\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"author\": {\r",
+											"            \"type\": \"integer\",\r",
+											"        },\r",
+											"        \"publication_datetime\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"id\": {\r",
+											"            \"type\": \"integer\",\r",
+											"        }\r",
+											"    },\r",
+											"};\r",
+											"pm.test('Schema is valid', function() {\r",
+											"  pm.expect(tv4.validate(pm.response.json(), schema)).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://hr.recruit.liis.su/qa0/v2/api/{{username}}/posts",
+									"protocol": "https",
+									"host": [
+										"hr",
+										"recruit",
+										"liis",
+										"su"
+									],
+									"path": [
+										"qa0",
+										"v2",
+										"api",
+										"{{username}}",
+										"posts"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Comments",
+					"item": [
+						{
+							"name": "POST Comment",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", function () {\r",
+											"    pm.response.to.have.status(201);\r",
+											"});\r",
+											"pm.collectionVariables.set(\"id_comment\", pm.response.json().id);\r",
+											"pm.collectionVariables.set(\"publication_datetime_comment\", pm.response.json().publication_datetime);\r",
+											"var jsonData = pm.response.json();\r",
+											"pm.test(\"Correct title\", function () {\r",
+											"    pm.expect(jsonData.title).to.eql(pm.collectionVariables.get(\"title_comment\"));\r",
+											"});\r",
+											"pm.test(\"Correct text\", function () {\r",
+											"    pm.expect(jsonData.text).to.eql(pm.collectionVariables.get(\"content_comment\"));\r",
+											"});\r",
+											"pm.test(\"Correct post\", function () {\r",
+											"    pm.expect(jsonData.post).to.eql(pm.collectionVariables.get(\"id_post_2\"));\r",
+											"});\r",
+											"pm.test(\"Correct author\", function () {\r",
+											"    pm.expect(jsonData.author).to.eql(pm.collectionVariables.get(\"author_post\"));\r",
+											"});\r",
+											"const schema = {\r",
+											"    \"required\": [\r",
+											"        \"title\",\r",
+											"        \"text\",\r",
+											"        \"author\",\r",
+											"        \"publication_datetime\",\r",
+											"        \"id\",\r",
+											"        \"post\"\r",
+											"    ],\r",
+											"    \"properties\": {\r",
+											"        \"title\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"text\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"author\": {\r",
+											"            \"type\": \"integer\",\r",
+											"        },\r",
+											"        \"publication_datetime\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"id\": {\r",
+											"            \"type\": \"integer\",\r",
+											"        },\r",
+											"        \"post\": {\r",
+											"            \"type\": \"integer\",\r",
+											"        }\r",
+											"    },\r",
+											"};\r",
+											"pm.test('Schema is valid', function() {\r",
+											"  pm.expect(tv4.validate(pm.response.json(), schema)).to.be.true;\r",
+											"});\r",
+											"pm.test(\"Response time is less than 400ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"{{title_comment}}\",\r\n    \"text\": \"{{content_comment}}\",\r\n    \"post\": {{id_post_2}}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://hr.recruit.liis.su/qa0/v2/api/{{username}}/comments",
+									"protocol": "https",
+									"host": [
+										"hr",
+										"recruit",
+										"liis",
+										"su"
+									],
+									"path": [
+										"qa0",
+										"v2",
+										"api",
+										"{{username}}",
+										"comments"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET Comment",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"var jsonData = pm.response.json();\r",
+											"pm.test(\"Correct title\", function () {\r",
+											"    pm.expect(jsonData.title).to.eql(pm.collectionVariables.get(\"title_comment\"));\r",
+											"});\r",
+											"pm.test(\"Correct text\", function () {\r",
+											"    pm.expect(jsonData.text).to.eql(pm.collectionVariables.get(\"content_comment\"));\r",
+											"});\r",
+											"pm.test(\"Correct post\", function () {\r",
+											"    pm.expect(jsonData.post).to.eql(pm.collectionVariables.get(\"id_post_2\"));\r",
+											"});\r",
+											"pm.test(\"Correct author\", function () {\r",
+											"    pm.expect(jsonData.author).to.eql(pm.collectionVariables.get(\"author_post\"));\r",
+											"});\r",
+											"pm.test(\"Correct id\", function () {\r",
+											"    pm.expect(jsonData.id).to.eql(pm.collectionVariables.get(\"id_comment\"));\r",
+											"});\r",
+											"pm.test(\"Correct publication_datetime\", function () {\r",
+											"    pm.expect(jsonData.publication_datetime).to.eql(pm.collectionVariables.get(\"publication_datetime_comment\"));\r",
+											"});\r",
+											"const schema = {\r",
+											"    \"required\": [\r",
+											"        \"title\",\r",
+											"        \"text\",\r",
+											"        \"author\",\r",
+											"        \"publication_datetime\",\r",
+											"        \"id\",\r",
+											"        \"post\"\r",
+											"    ],\r",
+											"    \"properties\": {\r",
+											"        \"title\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"text\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"author\": {\r",
+											"            \"type\": \"integer\",\r",
+											"        },\r",
+											"        \"publication_datetime\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"id\": {\r",
+											"            \"type\": \"integer\",\r",
+											"        },\r",
+											"        \"post\": {\r",
+											"            \"type\": \"integer\",\r",
+											"        }\r",
+											"    },\r",
+											"};\r",
+											"pm.test('Schema is valid', function() {\r",
+											"  pm.expect(tv4.validate(pm.response.json(), schema)).to.be.true;\r",
+											"});\r",
+											"pm.test(\"Response time is less than 400ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://hr.recruit.liis.su/qa0/v2/api/{{username}}/comment/{{id_comment}}",
+									"protocol": "https",
+									"host": [
+										"hr",
+										"recruit",
+										"liis",
+										"su"
+									],
+									"path": [
+										"qa0",
+										"v2",
+										"api",
+										"{{username}}",
+										"comment",
+										"{{id_comment}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PUT Comment",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"const shema = {\r",
+											"    \"message\": \"updated\",\r",
+											"    \"type\": \"success\"\r",
+											"};\r",
+											"pm.test('Schema is valid', function() {\r",
+											"  pm.expect(pm.response.json()).to.deep.include(shema);\r",
+											"});\r",
+											"pm.test(\"Response time is less than 400ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"{{title_comment_new}}\",\r\n    \"text\": \"{{content_comment_new}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://hr.recruit.liis.su/qa0/v2/api/{{username}}/comment/{{id_comment}}",
+									"protocol": "https",
+									"host": [
+										"hr",
+										"recruit",
+										"liis",
+										"su"
+									],
+									"path": [
+										"qa0",
+										"v2",
+										"api",
+										"{{username}}",
+										"comment",
+										"{{id_comment}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET Updated Comment",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"var jsonData = pm.response.json();\r",
+											"pm.test(\"Correct title\", function () {\r",
+											"    pm.expect(jsonData.title).to.eql(pm.collectionVariables.get(\"title_comment_new\"));\r",
+											"});\r",
+											"pm.test(\"Correct text\", function () {\r",
+											"    pm.expect(jsonData.text).to.eql(pm.collectionVariables.get(\"content_comment_new\"));\r",
+											"});\r",
+											"pm.test(\"Correct post\", function () {\r",
+											"    pm.expect(jsonData.post).to.eql(pm.collectionVariables.get(\"id_post_2\"));\r",
+											"});\r",
+											"pm.test(\"Correct author\", function () {\r",
+											"    pm.expect(jsonData.author).to.eql(pm.collectionVariables.get(\"author_post\"));\r",
+											"});\r",
+											"pm.test(\"Correct id\", function () {\r",
+											"    pm.expect(jsonData.id).to.eql(pm.collectionVariables.get(\"id_comment\"));\r",
+											"});\r",
+											"pm.test(\"Correct publication_datetime\", function () {\r",
+											"    pm.expect(jsonData.publication_datetime).to.eql(pm.collectionVariables.get(\"publication_datetime_comment\"));\r",
+											"});\r",
+											"const schema = {\r",
+											"    \"required\": [\r",
+											"        \"title\",\r",
+											"        \"text\",\r",
+											"        \"author\",\r",
+											"        \"publication_datetime\",\r",
+											"        \"id\",\r",
+											"        \"post\"\r",
+											"    ],\r",
+											"    \"properties\": {\r",
+											"        \"title\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"text\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"author\": {\r",
+											"            \"type\": \"integer\",\r",
+											"        },\r",
+											"        \"publication_datetime\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"id\": {\r",
+											"            \"type\": \"integer\",\r",
+											"        },\r",
+											"        \"post\": {\r",
+											"            \"type\": \"integer\",\r",
+											"        }\r",
+											"    },\r",
+											"};\r",
+											"pm.test('Schema is valid', function() {\r",
+											"  pm.expect(tv4.validate(pm.response.json(), schema)).to.be.true;\r",
+											"});\r",
+											"pm.test(\"Response time is less than 400ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://hr.recruit.liis.su/qa0/v2/api/{{username}}/comment/{{id_comment}}",
+									"protocol": "https",
+									"host": [
+										"hr",
+										"recruit",
+										"liis",
+										"su"
+									],
+									"path": [
+										"qa0",
+										"v2",
+										"api",
+										"{{username}}",
+										"comment",
+										"{{id_comment}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST Comment 2",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", function () {\r",
+											"    pm.response.to.have.status(201);\r",
+											"});\r",
+											"pm.collectionVariables.set(\"id_comment_2\", pm.response.json().id);\r",
+											"pm.collectionVariables.set(\"publication_datetime_comment_2\", pm.response.json().publication_datetime);\r",
+											"var jsonData = pm.response.json();\r",
+											"pm.test(\"Correct title\", function () {\r",
+											"    pm.expect(jsonData.title).to.eql(pm.collectionVariables.get(\"title_comment\"));\r",
+											"});\r",
+											"pm.test(\"Correct text\", function () {\r",
+											"    pm.expect(jsonData.text).to.eql(pm.collectionVariables.get(\"content_comment\"));\r",
+											"});\r",
+											"pm.test(\"Correct post\", function () {\r",
+											"    pm.expect(jsonData.post).to.eql(pm.collectionVariables.get(\"id_post_2\"));\r",
+											"});\r",
+											"pm.test(\"Correct author\", function () {\r",
+											"    pm.expect(jsonData.author).to.eql(pm.collectionVariables.get(\"author_post\"));\r",
+											"});\r",
+											"const schema = {\r",
+											"    \"required\": [\r",
+											"        \"title\",\r",
+											"        \"text\",\r",
+											"        \"author\",\r",
+											"        \"publication_datetime\",\r",
+											"        \"id\",\r",
+											"        \"post\"\r",
+											"    ],\r",
+											"    \"properties\": {\r",
+											"        \"title\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"text\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"author\": {\r",
+											"            \"type\": \"integer\",\r",
+											"        },\r",
+											"        \"publication_datetime\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"id\": {\r",
+											"            \"type\": \"integer\",\r",
+											"        },\r",
+											"        \"post\": {\r",
+											"            \"type\": \"integer\",\r",
+											"        }\r",
+											"    },\r",
+											"};\r",
+											"pm.test('Schema is valid', function() {\r",
+											"  pm.expect(tv4.validate(pm.response.json(), schema)).to.be.true;\r",
+											"});\r",
+											"pm.test(\"Response time is less than 400ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"{{title_comment}}\",\r\n    \"text\": \"{{content_comment}}\",\r\n    \"post\": {{id_post_2}}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://hr.recruit.liis.su/qa0/v2/api/{{username}}/comments",
+									"protocol": "https",
+									"host": [
+										"hr",
+										"recruit",
+										"liis",
+										"su"
+									],
+									"path": [
+										"qa0",
+										"v2",
+										"api",
+										"{{username}}",
+										"comments"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET Comments",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response time is less than 400ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+											"});\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"var jsonData = pm.response.json();\r",
+											"pm.collectionVariables.set(\"data_length_comment\", jsonData.length);\r",
+											"pm.test(\"Correct title\", function () {\r",
+											"    pm.expect(jsonData[jsonData.length - 2].title).to.eql(pm.collectionVariables.get(\"title_comment_new\"));\r",
+											"    pm.expect(jsonData[jsonData.length - 1].title).to.eql(pm.collectionVariables.get(\"title_comment\"));\r",
+											"});\r",
+											"pm.test(\"Correct text\", function () {\r",
+											"    pm.expect(jsonData[jsonData.length - 2].text).to.eql(pm.collectionVariables.get(\"content_comment_new\"));\r",
+											"    pm.expect(jsonData[jsonData.length - 1].text).to.eql(pm.collectionVariables.get(\"content_comment\"));\r",
+											"});\r",
+											"pm.test(\"Correct author\", function () {\r",
+											"    pm.expect(jsonData[jsonData.length - 2].author).to.eql(pm.collectionVariables.get(\"author_post\"));\r",
+											"    pm.expect(jsonData[jsonData.length - 1].author).to.eql(pm.collectionVariables.get(\"author_post\"));\r",
+											"});\r",
+											"pm.test(\"Correct id\", function () {\r",
+											"    pm.expect(jsonData[jsonData.length - 2].id).to.eql(pm.collectionVariables.get(\"id_comment\"));\r",
+											"    pm.expect(jsonData[jsonData.length - 1].id).to.eql(pm.collectionVariables.get(\"id_comment_2\"));\r",
+											"});\r",
+											"pm.test(\"Correct publication_datetime\", function () {\r",
+											"    pm.expect(jsonData[jsonData.length - 2].publication_datetime).to.eql(pm.collectionVariables.get(\"publication_datetime_comment\"));\r",
+											"    pm.expect(jsonData[jsonData.length - 1].publication_datetime).to.eql(pm.collectionVariables.get(\"publication_datetime_comment_2\"));\r",
+											"});\r",
+											"const schema = {\r",
+											"    \"required\": [\r",
+											"        \"title\",\r",
+											"        \"text\",\r",
+											"        \"author\",\r",
+											"        \"publication_datetime\",\r",
+											"        \"id\"\r",
+											"    ],\r",
+											"    \"properties\": {\r",
+											"        \"title\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"text\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"author\": {\r",
+											"            \"type\": \"integer\",\r",
+											"        },\r",
+											"        \"publication_datetime\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"id\": {\r",
+											"            \"type\": \"integer\",\r",
+											"        }\r",
+											"    },\r",
+											"};\r",
+											"pm.test('Schema is valid', function() {\r",
+											"  pm.expect(tv4.validate(pm.response.json(), schema)).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://hr.recruit.liis.su/qa0/v2/api/{{username}}/comments",
+									"protocol": "https",
+									"host": [
+										"hr",
+										"recruit",
+										"liis",
+										"su"
+									],
+									"path": [
+										"qa0",
+										"v2",
+										"api",
+										"{{username}}",
+										"comments"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET comments pagination",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response time is less than 400ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+											"});\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"var jsonData = pm.response.json();\r",
+											"pm.collectionVariables.set(\"data_length_comment\", jsonData.length);\r",
+											"pm.test(\"Correct title\", function () {\r",
+											"    pm.expect(jsonData[jsonData.length - 2].title).to.eql(pm.collectionVariables.get(\"title_comment_new\"));\r",
+											"    pm.expect(jsonData[jsonData.length - 1].title).to.eql(pm.collectionVariables.get(\"title_comment\"));\r",
+											"});\r",
+											"pm.test(\"Correct text\", function () {\r",
+											"    pm.expect(jsonData[jsonData.length - 2].text).to.eql(pm.collectionVariables.get(\"content_comment_new\"));\r",
+											"    pm.expect(jsonData[jsonData.length - 1].text).to.eql(pm.collectionVariables.get(\"content_comment\"));\r",
+											"});\r",
+											"pm.test(\"Correct author\", function () {\r",
+											"    pm.expect(jsonData[jsonData.length - 2].author).to.eql(pm.collectionVariables.get(\"author_post\"));\r",
+											"    pm.expect(jsonData[jsonData.length - 1].author).to.eql(pm.collectionVariables.get(\"author_post\"));\r",
+											"});\r",
+											"pm.test(\"Correct id\", function () {\r",
+											"    pm.expect(jsonData[jsonData.length - 2].id).to.eql(pm.collectionVariables.get(\"id_comment\"));\r",
+											"    pm.expect(jsonData[jsonData.length - 1].id).to.eql(pm.collectionVariables.get(\"id_comment_2\"));\r",
+											"});\r",
+											"pm.test(\"Correct publication_datetime\", function () {\r",
+											"    pm.expect(jsonData[jsonData.length - 2].publication_datetime).to.eql(pm.collectionVariables.get(\"publication_datetime_comment\"));\r",
+											"    pm.expect(jsonData[jsonData.length - 1].publication_datetime).to.eql(pm.collectionVariables.get(\"publication_datetime_comment_2\"));\r",
+											"});\r",
+											"const schema = {\r",
+											"    \"required\": [\r",
+											"        \"title\",\r",
+											"        \"text\",\r",
+											"        \"author\",\r",
+											"        \"publication_datetime\",\r",
+											"        \"id\"\r",
+											"    ],\r",
+											"    \"properties\": {\r",
+											"        \"title\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"text\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"author\": {\r",
+											"            \"type\": \"integer\",\r",
+											"        },\r",
+											"        \"publication_datetime\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"id\": {\r",
+											"            \"type\": \"integer\",\r",
+											"        }\r",
+											"    },\r",
+											"};\r",
+											"pm.test('Schema is valid', function() {\r",
+											"  pm.expect(tv4.validate(pm.response.json(), schema)).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://hr.recruit.liis.su/qa0/v2/api/{{username}}/comments?page=1",
+									"protocol": "https",
+									"host": [
+										"hr",
+										"recruit",
+										"liis",
+										"su"
+									],
+									"path": [
+										"qa0",
+										"v2",
+										"api",
+										"{{username}}",
+										"comments"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DEL Comment",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", function () {\r",
+											"    pm.response.to.have.status(204);\r",
+											"});\r",
+											"pm.test(\"Response time is less than 400ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://hr.recruit.liis.su/qa0/v2/api/{{username}}/comment/{{id_comment}}",
+									"protocol": "https",
+									"host": [
+										"hr",
+										"recruit",
+										"liis",
+										"su"
+									],
+									"path": [
+										"qa0",
+										"v2",
+										"api",
+										"{{username}}",
+										"comment",
+										"{{id_comment}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET Comments After DEL",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response time is less than 400ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+											"});\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"const comment = {\r",
+											"    \"text\": pm.collectionVariables.get(\"content_comment_new\"),\r",
+											"    \"id\": pm.collectionVariables.get(\"id_comment\"),\r",
+											"    \"post\": pm.collectionVariables.get(\"id_post_2\"),\r",
+											"    \"publication_datetime\": pm.collectionVariables.get(\"publication_datetime_comment\"),\r",
+											"    \"title\": pm.collectionVariables.get(\"title_comment_new\"),\r",
+											"    \"author\": pm.collectionVariables.get(\"author_post\")\r",
+											"};\r",
+											"const comment2 = {\r",
+											"    \"text\": pm.collectionVariables.get(\"content_comment\"),\r",
+											"    \"id\": pm.collectionVariables.get(\"id_comment_2\"),\r",
+											"    \"post\": pm.collectionVariables.get(\"id_post_2\"),\r",
+											"    \"publication_datetime\": pm.collectionVariables.get(\"publication_datetime_comment_2\"),\r",
+											"    \"title\": pm.collectionVariables.get(\"title_comment\"),\r",
+											"    \"author\": pm.collectionVariables.get(\"author_post\")\r",
+											"};\r",
+											"pm.test('Correct data', function() {\r",
+											"  pm.expect(pm.response.json()).to.not.deep.include(comment);\r",
+											"  pm.expect(pm.response.json()).to.deep.include(comment2);\r",
+											"});\r",
+											"const schema = {\r",
+											"    \"required\": [\r",
+											"        \"title\",\r",
+											"        \"text\",\r",
+											"        \"author\",\r",
+											"        \"publication_datetime\",\r",
+											"        \"id\"\r",
+											"    ],\r",
+											"    \"properties\": {\r",
+											"        \"title\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"text\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"author\": {\r",
+											"            \"type\": \"integer\",\r",
+											"        },\r",
+											"        \"publication_datetime\": {\r",
+											"            \"type\": \"string\",\r",
+											"        },\r",
+											"        \"id\": {\r",
+											"            \"type\": \"integer\",\r",
+											"        }\r",
+											"    },\r",
+											"};\r",
+											"pm.test('Schema is valid', function() {\r",
+											"  pm.expect(tv4.validate(pm.response.json(), schema)).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://hr.recruit.liis.su/qa0/v2/api/{{username}}/comments",
+									"protocol": "https",
+									"host": [
+										"hr",
+										"recruit",
+										"liis",
+										"su"
+									],
+									"path": [
+										"qa0",
+										"v2",
+										"api",
+										"{{username}}",
+										"comments"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Grant user admin role",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "123",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_id\": {{id_user}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://hr.recruit.liis.su/qa0/v2/api/{{username}}/make_admin",
+							"protocol": "https",
+							"host": [
+								"hr",
+								"recruit",
+								"liis",
+								"su"
+							],
+							"path": [
+								"qa0",
+								"v2",
+								"api",
+								"{{username}}",
+								"make_admin"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "basic",
+				"basic": [
+					{
+						"key": "username",
+						"value": "tsygnas@gmail.com",
+						"type": "string"
+					},
+					{
+						"key": "password",
+						"value": "123",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "id_post",
+			"value": ""
+		},
+		{
+			"key": "author_post",
+			"value": ""
+		},
+		{
+			"key": "publication_datetime_post",
+			"value": ""
+		},
+		{
+			"key": "title_post",
+			"value": "yourpostname",
+			"type": "string"
+		},
+		{
+			"key": "content_post",
+			"value": "yourpostcontent",
+			"type": "string"
+		},
+		{
+			"key": "title_post_new",
+			"value": "yourpostname_new",
+			"type": "string"
+		},
+		{
+			"key": "content_post_new",
+			"value": "yourpostcontent_new",
+			"type": "string"
+		},
+		{
+			"key": "id_post_2",
+			"value": ""
+		},
+		{
+			"key": "publication_datetime_post_2",
+			"value": ""
+		},
+		{
+			"key": "data_length_post",
+			"value": ""
+		},
+		{
+			"key": "title_comment",
+			"value": "yourcommenttitle",
+			"type": "string"
+		},
+		{
+			"key": "content_comment",
+			"value": "yourcommenttext",
+			"type": "string"
+		},
+		{
+			"key": "id_comment",
+			"value": ""
+		},
+		{
+			"key": "publication_datetime_comment",
+			"value": ""
+		},
+		{
+			"key": "title_comment_new",
+			"value": "yourcommenttitle_new",
+			"type": "string"
+		},
+		{
+			"key": "content_comment_new",
+			"value": "yourcommenttext_new",
+			"type": "string"
+		},
+		{
+			"key": "id_comment_2",
+			"value": ""
+		},
+		{
+			"key": "publication_datetime_comment_2",
+			"value": ""
+		},
+		{
+			"key": "data_length_comment",
+			"value": ""
+		},
+		{
+			"key": "username",
+			"value": "tsygnas@gmail.com",
+			"type": "string"
+		},
+		{
+			"key": "id_user",
+			"value": ""
+		}
+	]
+}
